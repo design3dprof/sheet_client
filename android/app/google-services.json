@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "726055965841",
+    "project_id": "setupsheetapp",
+    "storage_bucket": "setupsheetapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:726055965841:android:1219c416f46b934bba5b30",
+        "android_client_info": {
+          "package_name": "com.design3dprof.sheet_client"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "726055965841-81phjeuas8gf8tmte61aqbjf1nu9cks1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtb0PsE4SmY84AL5xga05l79lkMMtbCyg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "726055965841-81phjeuas8gf8tmte61aqbjf1nu9cks1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
