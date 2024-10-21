@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 class Operation {
@@ -16,16 +15,16 @@ class Operation {
 
   Operation(
       {this.program,
-        this.programName,
-        this.programPartName,
-        this.programComment,
-        this.programCycleTime,
-        this.dimensionX,
-        this.dimensionY,
-        this.dimensionZ,
-        this.user,
-        this.date,
-        this.ciklus});
+      this.programName,
+      this.programPartName,
+      this.programComment,
+      this.programCycleTime,
+      this.dimensionX,
+      this.dimensionY,
+      this.dimensionZ,
+      this.user,
+      this.date,
+      this.ciklus});
 
   Operation.fromJson(Map<String, dynamic> json) {
     program = json['Program'];
@@ -33,9 +32,9 @@ class Operation {
     programPartName = json['Program Part Name'];
     programComment = json['Program Comment'];
     programCycleTime = json['Program Cycle Time'];
-    dimensionX = json['Dimension X'];
-    dimensionY = json['Dimension Y'];
-    dimensionZ = json['Dimension Z'];
+    dimensionX = checkDouble(json['Dimension X']);
+    dimensionY = checkDouble(json['Dimension Y']);
+    dimensionZ = checkDouble(json['Dimension Z']);
     user = json['User'];
     date = json['Date'];
     if (json['ciklus'] != null) {
@@ -45,6 +44,7 @@ class Operation {
       });
     }
   }
+
   static List<Operation> listFromJson(list) =>
       List<Operation>.from(list.map((x) => Operation.fromJson(x)));
 
@@ -66,7 +66,9 @@ class Operation {
     return data;
   }
 
-
+  static double checkDouble(dynamic value) {
+    return value is int ? value.toDouble() : value;
+  }
 }
 
 class Ciklus {
@@ -95,51 +97,52 @@ class Ciklus {
 
   Ciklus(
       {this.operationID,
-        this.operationToolNr,
-        this.strategy,
-        this.tolerance,
-        this.coolant,
-        this.toolDiameter,
-        this.cornerRadius,
-        this.toolType,
-        this.operationDesc,
-        this.operationToolDesc,
-        this.maxStepdown,
-        this.maxStepover,
-        this.cuttingDistance,
-        this.rapidDistance,
-        this.operationMinZ,
-        this.operationMaxZ,
-        this.operationTime,
-        this.operationStockToLeaveXY,
-        this.operationStockToLeaveZ,
-        this.operationSpeed,
-        this.operationFeed,
-        this.notes
-      });
+      this.operationToolNr,
+      this.strategy,
+      this.tolerance,
+      this.coolant,
+      this.toolDiameter,
+      this.cornerRadius,
+      this.toolType,
+      this.operationDesc,
+      this.operationToolDesc,
+      this.maxStepdown,
+      this.maxStepover,
+      this.cuttingDistance,
+      this.rapidDistance,
+      this.operationMinZ,
+      this.operationMaxZ,
+      this.operationTime,
+      this.operationStockToLeaveXY,
+      this.operationStockToLeaveZ,
+      this.operationSpeed,
+      this.operationFeed,
+      this.notes});
 
   Ciklus.fromJson(Map<String, dynamic> json) {
     operationID = json['Operation ID'];
     operationToolNr = json['Operation Tool Nr'];
     strategy = json['Operation Strategy'];
-    tolerance = json['Operation Tolerance'];
+    tolerance = Operation.checkDouble(json['Operation Tolerance']);
     coolant = json['Coolant'];
-    toolDiameter = json['Tool Diameter'];
-    cornerRadius = json['Tool Corner Radius'];
+    toolDiameter = Operation.checkDouble(json['Tool Diameter']);
+    cornerRadius = Operation.checkDouble(json['Tool Corner Radius']);
     toolType = json['Tool Type'];
     operationDesc = json['Operation Desc'];
     operationToolDesc = json['Operation Tool Desc'];
-    maxStepdown = json['Maximum Stepdown'];
-    maxStepover = json['Maximum Stepover'];
-    cuttingDistance = json['Cutting Distance'];
-    rapidDistance = json['Rapid Distance'];
-    operationMinZ = json['Operation Min Z'];
-    operationMaxZ = json['Operation Max Z'];
+    maxStepdown = Operation.checkDouble(json['Maximum Stepdown']);
+    maxStepover = Operation.checkDouble(json['Maximum Stepover']);
+    cuttingDistance = Operation.checkDouble(json['Cutting Distance']);
+    rapidDistance = Operation.checkDouble(json['Rapid Distance']);
+    operationMinZ = Operation.checkDouble(json['Operation Min Z']);
+    operationMaxZ = Operation.checkDouble(json['Operation Max Z']);
     operationTime = json['Operation Time'];
-    operationStockToLeaveXY = json['Operation Stock To Leave XY'];
-    operationStockToLeaveZ = json['Operation Stock To Leave Z'];
-    operationSpeed = json['Operation Speed'];
-    operationFeed = json['Operation Feed'];
+    operationStockToLeaveXY =
+        Operation.checkDouble(json['Operation Stock To Leave XY']);
+    operationStockToLeaveZ =
+        Operation.checkDouble(json['Operation Stock To Leave Z']);
+    operationSpeed = Operation.checkDouble(json['Operation Speed']);
+    operationFeed = Operation.checkDouble(json['Operation Feed']);
     notes = json['Operation Notes'];
   }
 
@@ -170,19 +173,17 @@ class Ciklus {
     return data;
   }
 
-  convertNotes(){
+  convertNotes() {
     var text = notes.toString().runes.toList();
     return utf8.decode(text);
   }
-
 }
-
 
 class CiklusItem {
   String title;
   String value;
   bool isSelected;
 
-  CiklusItem({required this.title, required this.value, this.isSelected = true});
-
+  CiklusItem(
+      {required this.title, required this.value, this.isSelected = true});
 }
