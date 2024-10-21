@@ -84,6 +84,65 @@ class FileController extends GetxController {
     update();
   }
 
+  String formatOperationData(Operation operation) {
+    return [
+      "Program - ${operation.program ?? ''}",
+      "Program neve - ${operation.programName ?? ''}",
+      "Modell neve - ${operation.programPartName ?? ''}",
+      "Megjegyzés - ${operation.programComment ?? ''}",
+      "Program idő - ${operation.programCycleTime ?? ''}",
+      "Előgyártmány X - ${operation.dimensionX ?? ''}",
+      "Előgyártmány Y - ${operation.dimensionY ?? ''}",
+      "Előgyártmány Z - ${operation.dimensionZ ?? ''}",
+      "Dátum - ${operation.date ?? ''}",
+      "Létrehozta - ${operation.user ?? ''}",
+    ].join('\n');
+  }
+
+  String formatCiklusData(Ciklus ciklus) {
+    return [
+      "Ciklus ID - ${ciklus.operationID ?? ''}",
+      "Ciklus neve - ${ciklus.operationDesc ?? ''}",
+      "Szerszám - ${ciklus.operationToolNr ?? ''}",
+      "Szerszám megnevezés - ${ciklus.operationToolDesc ?? ''}",
+      "Ráhagyás XY - ${ciklus.operationStockToLeaveXY ?? ''}",
+      "Ráhagyás Z - ${ciklus.operationStockToLeaveZ ?? ''}",
+      "Max Z - ${ciklus.operationMaxZ ?? ''}",
+      "Min Z - ${ciklus.operationMinZ ?? ''}",
+      "Fordulat - ${ciklus.operationSpeed ?? ''}",
+      "Előtolás - ${ciklus.operationFeed ?? ''}",
+      "Ciklus idő - ${ciklus.operationTime ?? ''}",
+      "Szerszám típusa - ${ciklus.toolType ?? ''}",
+      "Művelet - ${ciklus.strategy ?? ''}",
+      "Tűrés - ${ciklus.tolerance ?? ''}",
+      "Hűtés - ${ciklus.coolant ?? ''}",
+      "Szerszám átmérő - ${ciklus.toolDiameter ?? ''}",
+      "Sarok rádiusz - ${ciklus.cornerRadius ?? ''}",
+      "Max fogás - ${ciklus.maxStepdown ?? ''}",
+      "Max oldallépés - ${ciklus.maxStepover ?? ''}",
+      "Forgácsolási út - ${ciklus.cuttingDistance ?? ''}",
+      "Gyorsjárati út - ${ciklus.rapidDistance ?? ''}",
+      "Megjegyzés - ${ciklus.notes ?? ''}",
+    ].join('\n');
+  }
+
+  void createList(Operation operation) {
+    var fullList = StringBuffer();
+
+    // Format and add the operation data
+    fullList.writeln(formatOperationData(operation));
+
+    // Format and add ciklus data
+    operation.ciklus?.forEach((element) {
+      fullList.writeln(formatCiklusData(element));
+      fullList.writeln('');  // Add an empty line after each ciklus
+    });
+
+    emailLista.value = fullList.toString();
+  }
+
+
+  /*
   createList(Operation operation) {
     var teljes = StringBuffer();
     teljes.writeln("Program - " + operation.program.toString());
@@ -130,6 +189,7 @@ class FileController extends GetxController {
 
     emailLista.value = teljes.toString();
   }
+  */
 
   createCiklusItemList(Ciklus ciklus){
     _itemList.clear();
